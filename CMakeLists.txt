@@ -91,3 +91,14 @@ set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE.txt")
 set(CPACK_WIX_UPGRADE_GUID "16c15f00-997e-479c-89ff-2cd30e55afe9") # 新規GUIDを生成して入れる
 set(CPACK_PROJECT_NAME "Calculator")
 include(CPack)
+
+if (WIN32)
+    add_custom_command(TARGET Calculator POST_BUILD
+        COMMAND "${Qt6_DIR}/../../../bin/windeployqt.exe"
+        --no-quick-import
+        --no-translations
+        --no-system-d3d-compiler
+        --dir "$<TARGET_FILE_DIR:Calculator>"
+        "$<TARGET_FILE:Calculator>"
+    )
+endif()
