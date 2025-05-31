@@ -96,3 +96,26 @@ set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE.txt")
 set(CPACK_WIX_UPGRADE_GUID "16c15f00-997e-479c-89ff-2cd30e55afe9") # 新規GUIDを生成して入れる
 set(CPACK_PROJECT_NAME "Calculator")
 include(CPack)
+
+# Qt DLLをインストーラに含める（windeployqtでコピーされたDLLをinstallコマンドで追加）
+if(WIN32)
+    # Debug/Release両対応でQt DLL・プラグインをインストーラに含める
+    install(DIRECTORY "${CMAKE_BINARY_DIR}/Debug/" DESTINATION "."
+        FILES_MATCHING PATTERN "Qt6*.dll"
+        PATTERN "*.pdb" EXCLUDE
+        PATTERN "*.lib" EXCLUDE
+        PATTERN "*.exp" EXCLUDE
+        PATTERN "*.obj" EXCLUDE
+        PATTERN "*.ilk" EXCLUDE
+        PATTERN "*.tlog" EXCLUDE
+        PATTERN "*.recipe" EXCLUDE
+        PATTERN "*.manifest" EXCLUDE
+        PATTERN "*.exe" EXCLUDE
+    )
+    install(DIRECTORY "${CMAKE_BINARY_DIR}/Debug/platforms" DESTINATION "." OPTIONAL)
+    install(DIRECTORY "${CMAKE_BINARY_DIR}/Debug/styles" DESTINATION "." OPTIONAL)
+    install(DIRECTORY "${CMAKE_BINARY_DIR}/Debug/imageformats" DESTINATION "." OPTIONAL)
+    install(DIRECTORY "${CMAKE_BINARY_DIR}/Debug/iconengines" DESTINATION "." OPTIONAL)
+    install(DIRECTORY "${CMAKE_BINARY_DIR}/Debug/qml" DESTINATION "." OPTIONAL)
+    install(DIRECTORY "${CMAKE_BINARY_DIR}/Debug/translations" DESTINATION "." OPTIONAL)
+endif()
