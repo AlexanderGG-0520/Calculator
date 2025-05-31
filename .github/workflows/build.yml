@@ -23,3 +23,7 @@ jobs:
         with:
           name: my_program_msvc
           path: ./Calculator.exe
+      - uses: actions/upload-artifact@v4
+        with:
+          name: CalculatorInstaller
+          path: build/*.msi
