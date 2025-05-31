@@ -30,6 +30,9 @@ jobs:
           cmake -S . -B build
           cmake --build build --config Debug
 
+      - name: Run windeployqt
+        run: windeployqt.exe build/Debug/Calculator.exe
+
       - name: Build MSI installer
         run: cmake --build build --target package
 

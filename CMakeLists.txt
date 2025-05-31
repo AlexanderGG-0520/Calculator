@@ -99,25 +99,14 @@ include(CPack)
 
 # Qt DLLをインストーラに含める（windeployqtでコピーされたDLLをinstallコマンドで追加）
 if(WIN32)
-    # 必要なQt DLLを明示的にC:\Qt\6.9.0\msvc2022_64\bin からコピーしてインストーラに含める
-    set(QT_DLLS
-        "C:/Qt/6.9.0/msvc2022_64/bin/Qt6Core.dll"
-        "C:/Qt/6.9.0/msvc2022_64/bin/Qt6Cored.dll"
-        "C:/Qt/6.9.0/msvc2022_64/bin/Qt6Gui.dll"
-        "C:/Qt/6.9.0/msvc2022_64/bin/Qt6Guid.dll"
-        "C:/Qt/6.9.0/msvc2022_64/bin/Qt6Networkd.dll"
-        "C:/Qt/6.9.0/msvc2022_64/bin/Qt6OpenGLd.dll"
-        "C:/Qt/6.9.0/msvc2022_64/bin/Qt6Qml.dll"
-        "C:/Qt/6.9.0/msvc2022_64/bin/Qt6Qmld.dll"
-        "C:/Qt/6.9.0/msvc2022_64/bin/Qt6QmlMetad.dll"
-        "C:/Qt/6.9.0/msvc2022_64/bin/Qt6QmlModelsd.dll"
-        "C:/Qt/6.9.0/msvc2022_64/bin/Qt6QmlWorkerScriptd.dll"
-        "C:/Qt/6.9.0/msvc2022_64/bin/Qt6Quick3DUtilsd.dll"
-        "C:/Qt/6.9.0/msvc2022_64/bin/Qt6Quickd.dll"
-        "C:/Qt/6.9.0/msvc2022_64/bin/Qt6Svgd.dll"
-        "C:/Qt/6.9.0/msvc2022_64/bin/Qt6Widgets.dll"
-        "C:/Qt/6.9.0/msvc2022_64/bin/Qt6Widgetsd.dll"
-    )
-    install(FILES ${QT_DLLS} DESTINATION "." OPTIONAL)
-    # プラグインディレクトリもQtからコピーする場合は同様に追加可能
+    find_program(WINDEPLOYQT_EXE NAMES windeployqt.exe PATHS
+        "C:/Qt/6.9.0/msvc2022_64/bin"
+        NO_DEFAULT_PATH)
+    if (WINDEPLOYQT_EXE)
+        add_custom_command(TARGET Calculator POST_BUILD
+            COMMAND "${WINDEPLOYQT_EXE}" "$<TARGET_FILE:Calculator>"
+        )
+    else()
+        message(WARNING "windeployqt.exe not found in C:/Qt/6.9.0/msvc2022_64/bin. Qt DLLs will not be bundled.")
+    endif()
 endif()
