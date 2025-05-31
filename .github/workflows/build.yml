@@ -47,4 +47,4 @@ jobs:
       - name: Run windeployqt
         shell: cmd
         run: |
-          "C:\Qt\6.5.3\msvc2019_64\bin\windeployqt.exe" build/Debug/Calculator.exe
+          "C:\Qt\6.9.0\msvc2022_64\bin\windeployqt.exe" build/Debug/Calculator.exe
