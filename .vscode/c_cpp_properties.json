@@ -1,0 +1,28 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}",
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/build",
+                "${workspaceFolder}/build/**",
+                "C:/Qt/6.9.0/mingw_64/include",
+                "C:/Qt/6.9.0/mingw_64/include/QtWidgets",
+                "C:/Qt/6.9.0/mingw_64/include/QtCore",
+                "C:/Qt/6.9.0/mingw_64/include/QtQml"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "windowsSdkVersion": "10.0.26100.0",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "compilerPath": "C:/Qt/Tools/mingw1310_64/bin/g++.exe",
+            "intelliSenseMode": "windows-gcc-x64"
+        }
+    ],
+    "version": 4
+}
