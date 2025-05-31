@@ -101,7 +101,7 @@ include(CPack)
 if(WIN32)
     # Debug/Release両対応でQt DLL・プラグインをインストーラに含める
     install(DIRECTORY "${CMAKE_BINARY_DIR}/Debug/" DESTINATION "."
-        FILES_MATCHING PATTERN "Qt6*.dll"
+        FILES_MATCHING PATTERN "*.dll"
         PATTERN "*.pdb" EXCLUDE
         PATTERN "*.lib" EXCLUDE
         PATTERN "*.exp" EXCLUDE
@@ -118,4 +118,10 @@ if(WIN32)
     install(DIRECTORY "${CMAKE_BINARY_DIR}/Debug/iconengines" DESTINATION "iconengines" OPTIONAL)
     install(DIRECTORY "${CMAKE_BINARY_DIR}/Debug/qml" DESTINATION "qml" OPTIONAL)
     install(DIRECTORY "${CMAKE_BINARY_DIR}/Debug/translations" DESTINATION "translations" OPTIONAL)
+    install(FILES
+        "${CMAKE_BINARY_DIR}/Debug/D3Dcompiler_47.dll"
+        "${CMAKE_BINARY_DIR}/Debug/opengl32sw.dll"
+        "${CMAKE_BINARY_DIR}/Debug/dxcompiler.dll"
+        "${CMAKE_BINARY_DIR}/Debug/dxil.dll"
+        DESTINATION "." OPTIONAL)
 endif()
