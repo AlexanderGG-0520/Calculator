@@ -12,22 +12,26 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Install WiX Toolset
+        uses: microsoft/setup-wix@v1
+
       - name: Set up MSVC environment and build
         shell: cmd
         run: |
           call "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Auxiliary\Build\vcvars64.bat"
-          cl /EHsc main.cpp /Fe:Calculator.exe
+          cmake -S . -B build
+          cmake --build build --config Debug
+
+      - name: Build MSI installer
+        run: cmake --build build --target package
 
       - name: Upload .exe as artifact
         uses: actions/upload-artifact@v4
         with:
           name: my_program_msvc
-          path: ./Calculator.exe
+          path: ./build/Debug/Calculator.exe
+
       - uses: actions/upload-artifact@v4
         with:
           name: CalculatorInstaller
           path: build/*.msi
-      - name: Install WiX Toolset
-        uses: microsoft/setup-wix@v1
-      - name: Build MSI installer
-        run: cmake --build build --target package
