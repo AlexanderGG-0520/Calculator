@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install WiX Toolset
-        run: choco install wix --no-progress --yes
+        run: choco install wix --no-progress
 
       - name: Set up MSVC environment and build
         shell: cmd
