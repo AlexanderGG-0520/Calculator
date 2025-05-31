@@ -99,24 +99,24 @@ include(CPack)
 
 # Qt DLLをインストーラに含める（windeployqtでコピーされたDLLをinstallコマンドで追加）
 if(WIN32)
-    # 必要なQt DLLをQtインストールディレクトリから直接コピーしてインストーラに含める
+    # 必要なQt DLLを明示的にC:\Qt\6.9.0\msvc2022_64\bin からコピーしてインストーラに含める
     set(QT_DLLS
-        "$ENV{Qt6_DIR}/../../../bin/Qt6Core.dll"
-        "$ENV{Qt6_DIR}/../../../bin/Qt6Cored.dll"
-        "$ENV{Qt6_DIR}/../../../bin/Qt6Gui.dll"
-        "$ENV{Qt6_DIR}/../../../bin/Qt6Guid.dll"
-        "$ENV{Qt6_DIR}/../../../bin/Qt6Networkd.dll"
-        "$ENV{Qt6_DIR}/../../../bin/Qt6OpenGLd.dll"
-        "$ENV{Qt6_DIR}/../../../bin/Qt6Qml.dll"
-        "$ENV{Qt6_DIR}/../../../bin/Qt6Qmld.dll"
-        "$ENV{Qt6_DIR}/../../../bin/Qt6QmlMetad.dll"
-        "$ENV{Qt6_DIR}/../../../bin/Qt6QmlModelsd.dll"
-        "$ENV{Qt6_DIR}/../../../bin/Qt6QmlWorkerScriptd.dll"
-        "$ENV{Qt6_DIR}/../../../bin/Qt6Quick3DUtilsd.dll"
-        "$ENV{Qt6_DIR}/../../../bin/Qt6Quickd.dll"
-        "$ENV{Qt6_DIR}/../../../bin/Qt6Svgd.dll"
-        "$ENV{Qt6_DIR}/../../../bin/Qt6Widgets.dll"
-        "$ENV{Qt6_DIR}/../../../bin/Qt6Widgetsd.dll"
+        "C:/Qt/6.9.0/msvc2022_64/bin/Qt6Core.dll"
+        "C:/Qt/6.9.0/msvc2022_64/bin/Qt6Cored.dll"
+        "C:/Qt/6.9.0/msvc2022_64/bin/Qt6Gui.dll"
+        "C:/Qt/6.9.0/msvc2022_64/bin/Qt6Guid.dll"
+        "C:/Qt/6.9.0/msvc2022_64/bin/Qt6Networkd.dll"
+        "C:/Qt/6.9.0/msvc2022_64/bin/Qt6OpenGLd.dll"
+        "C:/Qt/6.9.0/msvc2022_64/bin/Qt6Qml.dll"
+        "C:/Qt/6.9.0/msvc2022_64/bin/Qt6Qmld.dll"
+        "C:/Qt/6.9.0/msvc2022_64/bin/Qt6QmlMetad.dll"
+        "C:/Qt/6.9.0/msvc2022_64/bin/Qt6QmlModelsd.dll"
+        "C:/Qt/6.9.0/msvc2022_64/bin/Qt6QmlWorkerScriptd.dll"
+        "C:/Qt/6.9.0/msvc2022_64/bin/Qt6Quick3DUtilsd.dll"
+        "C:/Qt/6.9.0/msvc2022_64/bin/Qt6Quickd.dll"
+        "C:/Qt/6.9.0/msvc2022_64/bin/Qt6Svgd.dll"
+        "C:/Qt/6.9.0/msvc2022_64/bin/Qt6Widgets.dll"
+        "C:/Qt/6.9.0/msvc2022_64/bin/Qt6Widgetsd.dll"
     )
     install(FILES ${QT_DLLS} DESTINATION "." OPTIONAL)
     # プラグインディレクトリもQtからコピーする場合は同様に追加可能
