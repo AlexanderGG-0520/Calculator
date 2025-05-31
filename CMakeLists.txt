@@ -99,29 +99,25 @@ include(CPack)
 
 # Qt DLLをインストーラに含める（windeployqtでコピーされたDLLをinstallコマンドで追加）
 if(WIN32)
-    # Debug/Release両対応でQt DLL・プラグインをインストーラに含める
-    install(DIRECTORY "${CMAKE_BINARY_DIR}/Debug/" DESTINATION "."
-        FILES_MATCHING PATTERN "*.dll"
-        PATTERN "*.pdb" EXCLUDE
-        PATTERN "*.lib" EXCLUDE
-        PATTERN "*.exp" EXCLUDE
-        PATTERN "*.obj" EXCLUDE
-        PATTERN "*.ilk" EXCLUDE
-        PATTERN "*.tlog" EXCLUDE
-        PATTERN "*.recipe" EXCLUDE
-        PATTERN "*.manifest" EXCLUDE
-        PATTERN "*.exe" EXCLUDE
+    # 必要なQt DLLをQtインストールディレクトリから直接コピーしてインストーラに含める
+    set(QT_DLLS
+        "$ENV{Qt6_DIR}/../../../bin/Qt6Core.dll"
+        "$ENV{Qt6_DIR}/../../../bin/Qt6Cored.dll"
+        "$ENV{Qt6_DIR}/../../../bin/Qt6Gui.dll"
+        "$ENV{Qt6_DIR}/../../../bin/Qt6Guid.dll"
+        "$ENV{Qt6_DIR}/../../../bin/Qt6Networkd.dll"
+        "$ENV{Qt6_DIR}/../../../bin/Qt6OpenGLd.dll"
+        "$ENV{Qt6_DIR}/../../../bin/Qt6Qml.dll"
+        "$ENV{Qt6_DIR}/../../../bin/Qt6Qmld.dll"
+        "$ENV{Qt6_DIR}/../../../bin/Qt6QmlMetad.dll"
+        "$ENV{Qt6_DIR}/../../../bin/Qt6QmlModelsd.dll"
+        "$ENV{Qt6_DIR}/../../../bin/Qt6QmlWorkerScriptd.dll"
+        "$ENV{Qt6_DIR}/../../../bin/Qt6Quick3DUtilsd.dll"
+        "$ENV{Qt6_DIR}/../../../bin/Qt6Quickd.dll"
+        "$ENV{Qt6_DIR}/../../../bin/Qt6Svgd.dll"
+        "$ENV{Qt6_DIR}/../../../bin/Qt6Widgets.dll"
+        "$ENV{Qt6_DIR}/../../../bin/Qt6Widgetsd.dll"
     )
-    install(DIRECTORY "${CMAKE_BINARY_DIR}/Debug/platforms" DESTINATION "platforms" OPTIONAL)
-    install(DIRECTORY "${CMAKE_BINARY_DIR}/Debug/styles" DESTINATION "styles" OPTIONAL)
-    install(DIRECTORY "${CMAKE_BINARY_DIR}/Debug/imageformats" DESTINATION "imageformats" OPTIONAL)
-    install(DIRECTORY "${CMAKE_BINARY_DIR}/Debug/iconengines" DESTINATION "iconengines" OPTIONAL)
-    install(DIRECTORY "${CMAKE_BINARY_DIR}/Debug/qml" DESTINATION "qml" OPTIONAL)
-    install(DIRECTORY "${CMAKE_BINARY_DIR}/Debug/translations" DESTINATION "translations" OPTIONAL)
-    install(FILES
-        "${CMAKE_BINARY_DIR}/Debug/D3Dcompiler_47.dll"
-        "${CMAKE_BINARY_DIR}/Debug/opengl32sw.dll"
-        "${CMAKE_BINARY_DIR}/Debug/dxcompiler.dll"
-        "${CMAKE_BINARY_DIR}/Debug/dxil.dll"
-        DESTINATION "." OPTIONAL)
+    install(FILES ${QT_DLLS} DESTINATION "." OPTIONAL)
+    # プラグインディレクトリもQtからコピーする場合は同様に追加可能
 endif()
