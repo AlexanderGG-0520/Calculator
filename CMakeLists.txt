@@ -60,7 +60,7 @@ target_link_libraries(Calculator PRIVATE Qt6::Widgets Qt6::Qml)
 # If you are developing for iOS or macOS you should consider setting an
 # explicit, fixed bundle identifier manually though.
 if(${QT_VERSION} VERSION_LESS 6.1.0)
-  set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.example.Calculator)
+    set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.example.Calculator)
 endif()
 set_target_properties(Calculator PROPERTIES
     ${BUNDLE_ID_OPTION}
