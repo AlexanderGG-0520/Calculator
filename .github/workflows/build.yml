@@ -43,8 +43,3 @@ jobs:
         with:
           name: CalculatorInstaller
           path: build/*.msi
-
-      - name: Run windeployqt
-        shell: cmd
-        run: |
-          "C:\Qt\6.9.0\msvc2022_64\bin\windeployqt.exe" build/Debug/Calculator.exe

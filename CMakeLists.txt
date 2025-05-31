@@ -82,6 +82,11 @@ if(QT_VERSION_MAJOR EQUAL 6)
 endif()
 
 include(InstallRequiredSystemLibraries)
+set(CMAKE_INSTALL_SYSTEM_RUNTIME_LIBS_SKIP TRUE)
+
+# QtのDLLとプラグインを自動でインストール先にコピー
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/QtDeploy.cmake OPTIONAL)
+
 set(CPACK_GENERATOR "WIX")
 set(CPACK_PACKAGE_NAME "Calculator")
 set(CPACK_PACKAGE_VENDOR "YourName")
@@ -91,26 +96,3 @@ set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE.txt")
 set(CPACK_WIX_UPGRADE_GUID "16c15f00-997e-479c-89ff-2cd30e55afe9") # 新規GUIDを生成して入れる
 set(CPACK_PROJECT_NAME "Calculator")
 include(CPack)
-
-if (WIN32)
-    # GitHub ActionsやローカルでQtのbinパスが異なる場合に対応
-    find_program(WINDEPLOYQT_EXE NAMES windeployqt.exe PATHS
-        "$ENV{Qt6_DIR}/../../../bin"
-        "$ENV{Qt6_DIR}/../../bin"
-        "$ENV{Qt6_DIR}/bin"
-        "${Qt6_DIR}/../../../bin"
-        "${Qt6_DIR}/../../bin"
-        "${Qt6_DIR}/bin"
-        "C:/Qt/6.9.0/mingw_64/bin"
-        "C:/Qt/6.9.0/msvc2022_64/bin"
-        "C:/Qt/6.5.3/msvc2019_64/bin"
-        "C:/Qt/6.5.3/mingw_64/bin"
-        NO_DEFAULT_PATH)
-    if (WINDEPLOYQT_EXE)
-        add_custom_command(TARGET Calculator POST_BUILD
-            COMMAND "${WINDEPLOYQT_EXE}" "$<TARGET_FILE:Calculator>"
-        )
-    else()
-        message(WARNING "windeployqt.exe not found. Qt DLLs will not be bundled.")
-    endif()
-endif()
