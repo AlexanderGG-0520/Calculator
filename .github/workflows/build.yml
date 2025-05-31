@@ -12,6 +12,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Set up Qt
+        uses: miurahr/setup-qt@v3
+        with:
+          version: '6.5.3'  # 例: 必要なQt6のバージョンを指定
+
       - name: Download and install WiX Toolset 3.11.2
         run: |
           Invoke-WebRequest -Uri "https://github.com/wixtoolset/wix3/releases/download/wix3112rtm/wix311-binaries.zip" -OutFile wix.zip
