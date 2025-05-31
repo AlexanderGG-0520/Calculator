@@ -27,3 +27,7 @@ jobs:
         with:
           name: CalculatorInstaller
           path: build/*.msi
+      - name: Install WiX Toolset
+        uses: microsoft/setup-wix@v1
+      - name: Build MSI installer
+        run: cmake --build build --target package
