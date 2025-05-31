@@ -93,12 +93,24 @@ set(CPACK_PROJECT_NAME "Calculator")
 include(CPack)
 
 if (WIN32)
-    add_custom_command(TARGET Calculator POST_BUILD
-        COMMAND "${Qt6_DIR}/../../../bin/windeployqt.exe"
-        --no-quick-import
-        --no-translations
-        --no-system-d3d-compiler
-        --dir "$<TARGET_FILE_DIR:Calculator>"
-        "$<TARGET_FILE:Calculator>"
-    )
+    # GitHub ActionsやローカルでQtのbinパスが異なる場合に対応
+    find_program(WINDEPLOYQT_EXE NAMES windeployqt.exe PATHS
+        "$ENV{Qt6_DIR}/../../../bin"
+        "$ENV{Qt6_DIR}/../../bin"
+        "$ENV{Qt6_DIR}/bin"
+        "${Qt6_DIR}/../../../bin"
+        "${Qt6_DIR}/../../bin"
+        "${Qt6_DIR}/bin"
+        "C:/Qt/6.9.0/mingw_64/bin"
+        "C:/Qt/6.9.0/msvc2022_64/bin"
+        "C:/Qt/6.5.3/msvc2019_64/bin"
+        "C:/Qt/6.5.3/mingw_64/bin"
+        NO_DEFAULT_PATH)
+    if (WINDEPLOYQT_EXE)
+        add_custom_command(TARGET Calculator POST_BUILD
+            COMMAND "${WINDEPLOYQT_EXE}" "$<TARGET_FILE:Calculator>"
+        )
+    else()
+        message(WARNING "windeployqt.exe not found. Qt DLLs will not be bundled.")
+    endif()
 endif()
