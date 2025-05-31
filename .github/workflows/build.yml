@@ -16,7 +16,7 @@ jobs:
         shell: cmd
         run: |
           call "C:\Program Files (x86)\Microsoft Visual Studio\2022\BuildTools\VC\Auxiliary\Build\vcvars64.bat"
-          cl /EHsc main.cpp mainwindow.cpp mainwindow.h mainwindow.ui /Fe:Calculator.exe
+          cl /EHsc main.cpp mainwindow.cpp /Fe:Calculator.exe
 
       - name: Upload .exe as artifact
         uses: actions/upload-artifact@v4
